@@ -27,12 +27,11 @@ function App() {
     // }
 console.log(token)
   return(
-      <div className="App">
-              {/* <Dashboard/> */}
-           
-                {token ?
-                    <Dashboard/>
-                    : <Login/>
+    
+      <div className="App">                           
+                {!token ?
+                     <Login/> : <Dashboard/>
+                  
                 }
         </div>
   )

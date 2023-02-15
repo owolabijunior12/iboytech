@@ -1,12 +1,23 @@
 .Dashboard{
     display: flex;
-    height: 100vh;
+   max-height: 100vh;
+   height: 100vh;
     background: #848484;
 }
+
+.cht{
+    display: flex;
+    justify-content: space-between;
+}
+
 .sidebar{
-    border: #00ff00 3px solid;
+    /* border: #00ff00 3px solid; */
     padding:10px 20px;
-    width: 200px;
+    display: flex;
+    overflow-y: scroll;
+    background: #151313;
+    justify-content: center;
+    width: 250px;
 }
 .body{
     text-align: center;

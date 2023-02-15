@@ -1,21 +1,15 @@
 import React ,{useState, useEffect} from 'react'
+import '../style/Sidebar.css'
+import IBOY from '../style/IBOY.jpg'
+import Login from './Login'
 import axios from 'axios'
+// import { accessUrl } from '../useAuth'
+
 export default  function Sidebar() {
     const [token, setToken] = useState("")
     const [searchKey, setSearchKey] = useState("")
     const [artists, setArtists] = useState([])
-const searchArtists = async (e) => {
 
-    e.preventDefault()
-    const {data} = await axios.get("https://api.spotify.com/v1/search", {
-        headers: {
-            Authorization: `Bearer ${token}`
-        },
-        params: {
-            q: searchKey,
-            type: "artist"
-        }
-    })
     useEffect(() => {
         const hash = window.location.hash
         let token = window.localStorage.getItem("token")
@@ -28,28 +22,73 @@ const searchArtists = async (e) => {
         }
     
         setToken(token)
-    })
+    
+    }, [])
+    const logout = () => {
+        setToken("")
+        window.localStorage.removeItem("token")
+    }
 
-    // }, [])
-    // console.log(searchArtists())
-    setArtists(data.artists.items)
+    const searchArtists = async (e) => {
+        e.preventDefault()
+        const {data} = await axios.get("https://api.spotify.com/v1/search", {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            params: {
+                q: searchKey,
+                type: "artist"
+            }
+            
+        })
+        // console.log(searchArtists);
+        setArtists(data.artists.items)
+
+    }
+   
     const renderArtists = () => {
         return artists.map(artist => (
-            <div key={artist.id}>
-                {artist.images.length ? <img width={"100%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
-                {artist.name}
+            <div className='resultdiv' key={artist.id}>
+                {artist.images.length ? <img width={"30%"} src={artist.images[0].url} alt=""/> : <div>No Image</div>}
+               
+                <div className='cht'>
+                    <small> {artist.name}</small>
+                     <player>Play</player>
+                </div>
             </div>
         ))
+        
     }
-  return (
-    <div className='sidebar'>
-      <div className="sidebar-header">      
-                <form onSubmit={searchArtists}>
-                    <input type="text" onChange={e => setSearchKey(e.target.value)}/>
-                    <button type={"submit"}>Search</button>
-                </form>
-                {renderArtists()}
-      </div>
-    </div>
-  )}
+    console.log(artists.popularity)
+    console.log(artists);
+
+
+    return(
+        <div>
+            <div className="sidebar-header">
+            <a href='\'>
+                <img
+                    src={IBOY}
+                    className='SlideBar-img'
+                    alt='App logo'
+                />
+            </a>
+            {!token ?
+                    <Login/>
+                    : <button onClick={logout}>Logout</button>} 
+        
+            <form className="searchForm"  onSubmit={searchArtists}>
+                <input type="text" placeHolder="search" className="searchInput" onChange={e => setSearchKey(e.target.value)}/>
+                <button type={"submit"} className='searchBtn'>go</button>
+                    {renderArtists()}
+                   
+            </form>
+            </div>
+            <div className='localMusic'>
+                    Add Local Music
+            </div>
+        </div>
+        
+      
+    )
 }
