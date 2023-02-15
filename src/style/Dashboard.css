@@ -1,0 +1,19 @@
+.Dashboard{
+    display: flex;
+    height: 100vh;
+    background: #848484;
+}
+.sidebar{
+    border: #00ff00 3px solid;
+    padding:10px 20px;
+    width: 200px;
+}
+.body{
+    text-align: center;
+    flex: 1;
+    margin: 2px;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    border: #00ff00 3px solid;
+}
