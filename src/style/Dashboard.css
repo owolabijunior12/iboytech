@@ -10,14 +10,17 @@
     justify-content: space-between;
 }
 
-.sidebar{
-    /* border: #00ff00 3px solid; */
-    padding:10px 20px;
+.sidebarcontainer{
+    border: #00ff00 3px solid;
+    padding: 0 10px ;
+    flex-direction: column;
     display: flex;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    max-width: 290px;
+    /* align-items: center; */
     background: #151313;
-    justify-content: center;
-    width: 250px;
+    /* justify-content: center; */
+    width: 290px;
 }
 .body{
     text-align: center;
